@@ -6,6 +6,7 @@ The more you do, the more you'll get from the day. The first two bullets are a g
 
 * https://arcprize.org/tasks?v=3 - try some challenges, think about 'how you figure out how to solve them'
 * https://docs.arcprize.org/ - setup your local machine, get an ARC key
+* join #arc-agi in the playgroup slack
 * Overview paper "ARC-AGI-3: A New Challenge for Frontier Agentic Intelligence" https://arxiv.org/abs/2603.24621 
   * summary here-> https://www.emergentmind.com/papers/2603.24621
 * see the Kaggle competition Leaderboard note below, see the 3 benchmark solutions, we should find these and read about them for a clue about how to get going
