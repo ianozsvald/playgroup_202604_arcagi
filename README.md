@@ -28,6 +28,45 @@ Following https://docs.arcprize.org/#3-play-your-first-game you can make `my-pla
 
 We can move on to building an LLM guided bot via these notes: https://docs.arcprize.org/llm_agents
 
+## Get an ARC AGI KEY
+
+* https://docs.arcprize.org/api-keys
+* https://arcprize.org/platform # login with GitHub (or Google)
+* I had to revisit that link to get to https://arcprize.org/platform/user
+* I edited `.env` in `ARC-AGI` to read `ARC_API_KEY=4...` (*not* ARC_AGI_API!)
+* when you run a project it shouldn't report "anonymous key"
+* this _should_ let you see traces of examples runs online (but I'm not sure where?)
+  * ah, they were delayed-> https://arcprize.org/scorecards (needs login)
+
+## OpenAI API Key and ARC AGI Agents
+
+* login at https://platform.openai.com/home and fund your account
+* make an API key https://platform.openai.com/api-keys 
+
+```
+pwd -> playgroup_202604_arcagi # in this folder
+git clone git@github.com:arcprize/ARC-AGI-3-Agents.git
+pwd -> /home/ian/workspace/personal/playgroup/playgroup_202604_arcagi/ARC-AGI-3-Agents
+ARC-AGI-3-Agents$ cp .env.example .env 
+# edit .env to update your ARC_API_KEY and OPENAI_API_KEY
+# I commented out AGENTOPS_API_KEY
+uv run main.py --agent=random --game=ls20 # installs uv env, runs non-LLM agent
+# it gave me a scorecard url (below) but that was a 404?!
+# https://three.arcprize.org/scorecards/e818a181-4693-480b-ad2d-44a129cce370
+Ah, remove 'three.' from the url, this works ->
+https://arcprize.org/scorecards/e818a181-4693-480b-ad2d-44a129cce370
+https://arcprize.org/scorecards # shows them all
+Now visit -> https://docs.arcprize.org/agents-quickstart
+ARC-AGI-3-Agents$ uv run main.py --agent=llm --game=ls20 # uses OpenAI API Key
+https://github.com/arcprize/ARC-AGI-3-Agents/blob/main/agents/templates/llm_agents.py#L16
+the above took 2 minutes and $0.09 with gpt-4o-mini in `llm`
+Check back https://platform.openai.com/home for credit balance
+
+ARC-AGI-3-Agents$ uv run main.py --agent=guidedllm --game=ls20
+https://github.com/arcprize/ARC-AGI-3-Agents/blob/main/agents/templates/llm_agents.py#L496
+the above took XXX minutes and XXX with 03 (it is still running, might take a while!)
+``` 
+
 
 ## Kaggle description (going further)
 
