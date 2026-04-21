@@ -1,81 +1,122 @@
-During 2026-04 I'm running another https://playgroup.org.uk/ , this time on the wonderful ARC AGI 2026 benchmark.
+# Playgroup 2026-04: ARC AGI
 
-# Getting started for the day
+> [!NOTE]
+> During 2026-04 I'm running another [Playgroup](https://playgroup.org.uk/), this time on the wonderful ARC AGI 2026 benchmark.
+
+## Getting Started
 
 The more you do, the more you'll get from the day. The first two bullets are a great starting point.
 
-* https://arcprize.org/tasks?v=3 - try some challenges, think about 'how you figure out how to solve them'
-* https://docs.arcprize.org/ - setup your local machine, get an ARC key - see below
-* join #arc-agi in the playgroup slack
-* Overview paper "ARC-AGI-3: A New Challenge for Frontier Agentic Intelligence" https://arxiv.org/abs/2603.24621 
-  * summary here-> https://www.emergentmind.com/papers/2603.24621
-* see the Kaggle competition Leaderboard note below, see the 3 benchmark solutions, we should find these and read about them for a clue about how to get going
-* 30 day write-up from the pre-v3 competition has useful background-> https://arcprize.org/blog/arc-agi-3-preview-30-day-learnings including links to public solutions
-* "Core knowledge", Elizabeth S. Spelke and Katherine D. Kinzler https://www.harvardlds.org/wp-content/uploads/2017/01/SpelkeKinzler07-1.pdf this is the assumed mammal-like core knowledge that Chollet believes our Agents should just understand, and the games depend on this
+- [Try some challenges](https://arcprize.org/tasks?v=3) and think about 'how you figure out how to solve them'
+- [Set up your local machine and get an ARC key](https://docs.arcprize.org/) (see below)
+- Join `#arc-agi` in the playgroup Slack
+- Overview paper: [ARC-AGI-3: A New Challenge for Frontier Agentic Intelligence](https://arxiv.org/abs/2603.24621)
+    - [paper summary on Emergent Mind](https://www.emergentmind.com/papers/2603.24621)
+- See the Kaggle competition leaderboard note below. There are 3 benchmark solutions; finding these and reading about them is a good clue for how to get going.
+- [30-day write-up from the pre-v3 competition](https://arcprize.org/blog/arc-agi-3-preview-30-day-learnings) has useful background (includes links to public solutions)
+- ["Core knowledge" by Elizabeth S. Spelke and Katherine D. Kinzler](https://www.harvardlds.org/wp-content/uploads/2017/01/SpelkeKinzler07-1.pdf). This is the assumed mammal-like core knowledge that Chollet believes our agents should just understand, and the games depend on it.
 
-## Installing the ARC AGI (non-agent) code as a test
+## Non-Agent Mode (smoke test)
 
+From the `playgroup_202604_arcagi` folder, clone the ARC AGI repo (pinned to a known-good commit, ensures we are all on the same version), install it, and run the quickstart:
+
+```bash
+# pinned 2026-04-17
+git clone git@github.com:arcprize/ARC-AGI.git && cd ARC-AGI && git checkout c729dab36b3d
+
+# Builds the arc-agi package
+uv sync
+
+# Verify it works!
+uv run quickstart.py
 ```
-pwd -> playgroup_202604_arcagi # in this folder
-git clone git@github.com:arcprize/ARC-AGI.git # clone the ARC AGI repo
-cd ARC-AGI
-uv add arc-agi
-uv run quickstart.py # runs a random (non llm) mover in the shell
-# READ quickstart.py and see what's going on (it is 2 pages of simple code)
+
+> [!NOTE]
+> Read `quickstart.py` — it's only two pages and shows a random (non-LLM) mover in the shell.
+
+Following the [Play your first game](https://docs.arcprize.org/#3-play-your-first-game) docs, you can create `my-play.py` (non-LLM) in the same folder and run it:
+
+```bash
+# Note: File won't exist by default, see link above to grab the code!
+uv run my-play.py
 ```
 
-Following https://docs.arcprize.org/#3-play-your-first-game you can make `my-play.py` (non-llm) in that same folder and run it with `uv run my-play.py`, the player blob runs off of the top of the screen. Now you have the basic code for writing a non-llm bot.
+The player blob runs off the top of the screen. That's the basic code for writing a non-LLM bot. To move on to an LLM-guided bot, see the [LLM agents notes](https://docs.arcprize.org/llm_agents).
 
-We can move on to building an LLM guided bot via these notes: https://docs.arcprize.org/llm_agents
+## Agent Mode
 
-## Get an ARC AGI KEY
+### 1. Get Agents Repo
 
-* https://docs.arcprize.org/api-keys
-* https://arcprize.org/platform # login with GitHub (or Google)
-* I had to revisit that link to get to https://arcprize.org/platform/user
-* I edited `.env` in `ARC-AGI` to read `ARC_API_KEY=4...` (*not* ARC_AGI_API!)
-* when you run a project it shouldn't report "anonymous key"
-* this _should_ let you see traces of examples runs online (but I'm not sure where?)
-  * ah, they were delayed-> https://arcprize.org/scorecards (needs login)
+From the `playgroup_202604_arcagi` folder (repo root), clone the agents repo (pinned) and set up the environment:
 
-## OpenAI API Key and ARC AGI Agents
+```bash
+# pinned 2026-02-10
+git clone git@github.com:arcprize/ARC-AGI-3-Agents.git && cd ARC-AGI-3-Agents && git checkout 135f20aaf44f
 
-* login at https://platform.openai.com/home and fund your account
-* make an API key https://platform.openai.com/api-keys 
-
+# Prep the environment file
+cp .env.example .env
 ```
-pwd -> playgroup_202604_arcagi # in this folder
-git clone git@github.com:arcprize/ARC-AGI-3-Agents.git
-pwd -> /home/ian/workspace/personal/playgroup/playgroup_202604_arcagi/ARC-AGI-3-Agents
-ARC-AGI-3-Agents$ cp .env.example .env 
-# edit .env to update your ARC_API_KEY and OPENAI_API_KEY
-# I commented out AGENTOPS_API_KEY
-uv run main.py --agent=random --game=ls20 # installs uv env, runs non-LLM agent
-# it gave me a scorecard url (below) but that was a 404?!
-# https://three.arcprize.org/scorecards/e818a181-4693-480b-ad2d-44a129cce370
-Ah, remove 'three.' from the url, this works ->
-https://arcprize.org/scorecards/e818a181-4693-480b-ad2d-44a129cce370
-https://arcprize.org/scorecards # shows them all
-Now visit -> https://docs.arcprize.org/agents-quickstart
-ARC-AGI-3-Agents$ uv run main.py --agent=llm --game=ls20 # uses OpenAI API Key
-https://github.com/arcprize/ARC-AGI-3-Agents/blob/main/agents/templates/llm_agents.py#L16
-the above took 2 minutes and $0.09 with gpt-4o-mini in `llm`
-Check back https://platform.openai.com/home for credit balance
 
-ARC-AGI-3-Agents$ uv run main.py --agent=guidedllm --game=ls20
-https://github.com/arcprize/ARC-AGI-3-Agents/blob/main/agents/templates/llm_agents.py#L496
-the above took XXX minutes and XXX with 03 (it is still running, might take a while!)
-``` 
+### 2. Get an ARC AGI key
 
+See the [API keys reference](https://docs.arcprize.org/api-keys).
 
-## Kaggle description (going further)
+[Log in to the ARC platform](https://arcprize.org/platform) with GitHub or Google. I had to revisit that link to reach the [user page](https://arcprize.org/platform/user). Copy your key and edit `.env` in `ARC-AGI` to read `ARC_API_KEY=4...` (_not_ `ARC_AGI_API`). Verify: when you run a project it shouldn't report "anonymous key".
 
-* https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/overview
-* https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/data sign-in, "Join the competition", "Accept"
-* https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/leaderboard
-  * circa 500 teams, 'Stochastic Goose' with 0.25 at rank 220, 'Random Agent' with 0.12 at rank 430, 'Just Explore' with 0.06 at rank 510 - figuring out how these benchmark (non agentic?) solutions work would be a good start point
-  * Stochastic Goose-> https://github.com/DriesSmit/ARC3-solution 
-  * Blind Squirrel -> https://github.com/wd13ca/ARC-AGI-3-Agents
-  * Play Zero (preview comp) https://github.com/dhanaabhirajk/ARC-AGI-3-Agentsa
-  * Explore it Till You Solve It (preview comp) https://github.com/dolphin-in-a-coma/arc-agi-3-just-explorea
-  * Fluxonian (preview comp) https://github.com/FluxonApps/arc-prize-v3-2025
+Traces of example runs appear (delayed) on your [scorecards page](https://arcprize.org/scorecards) (login required).
+
+### 3. Get an OpenAI Key
+
+[Log in to OpenAI](https://platform.openai.com/home), fund your account, and create an [API key](https://platform.openai.com/api-keys).
+
+### 4. Setup environment
+
+Edit `.env` to set `ARC_API_KEY` and `OPENAI_API_KEY`. I commented out `AGENTOPS_API_KEY`.
+
+### 5. Test Non-LLM Agent
+
+Run the non-LLM random agent (this also installs the uv environment):
+
+```bash
+uv run main.py --agent=random --game=ls20
+```
+
+It prints a scorecard URL. The URL it gave me 404'd on `three.arcprize.org`; stripping `three.` works:
+
+- Broken: `https://three.arcprize.org/scorecards/<id>`
+- Works: `https://arcprize.org/scorecards/<id>`
+- [All scorecards](https://arcprize.org/scorecards)
+
+### 6. Test LLM Agent
+
+Next, visit the [agents quickstart](https://docs.arcprize.org/agents-quickstart), then run the LLM agent (uses your OpenAI key):
+
+```bash
+uv run main.py --agent=llm --game=ls20
+```
+
+Source: [`llm_agents.py` line 16](./ARC-AGI-3-Agents/agents/templates/llm_agents.py#L16). This took about 2 minutes and $0.09 with `gpt-4o-mini` on my run. Check your [OpenAI balance](https://platform.openai.com/home).
+
+### 7. Test Guided LLM Agent
+
+Then try the guided LLM agent:
+
+```bash
+uv run main.py --agent=guidedllm --game=ls20
+```
+
+Source: [`llm_agents.py` line 496](./ARC-AGI-3-Agents/agents/templates/llm_agents.py#L496). Took XXX minutes and XXX with o3 (still running when I wrote this, may take a while).
+
+## Follow Up
+
+### Kaggle description
+
+- [Competition overview](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/overview)
+- [Competition data](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/data) — sign in, "Join the competition", "Accept"
+- [Leaderboard](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/leaderboard)
+    - Circa 500 teams. 'Stochastic Goose' with 0.25 at rank 220, 'Random Agent' with 0.12 at rank 430, 'Just Explore' with 0.06 at rank 510. Figuring out how these benchmark (non-agentic?) solutions work is a good starting point.
+    - [Stochastic Goose](https://github.com/DriesSmit/ARC3-solution)
+    - [Blind Squirrel](https://github.com/wd13ca/ARC-AGI-3-Agents)
+    - [Play Zero](https://github.com/dhanaabhirajk/ARC-AGI-3-Agentsa) (preview comp)
+    - [Explore it Till You Solve It](https://github.com/dolphin-in-a-coma/arc-agi-3-just-explorea) (preview comp)
+    - [Fluxonian](https://github.com/FluxonApps/arc-prize-v3-2025) (preview comp)
