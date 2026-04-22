@@ -115,7 +115,7 @@ Then try the guided LLM agent which has a prompt that's a human-solution to one 
 uv run main.py --agent=guidedllm --game=ls20
 ```
 
-Source: [`llm_agents.py` line 496](./ARC-AGI-3-Agents/agents/templates/llm_agents.py#L496). Took 10 minutes and $0.50 with o3.
+Source: [`llm_agents.py` line 496](./ARC-AGI-3-Agents/agents/templates/llm_agents.py#L496).
 
 Visit the scorecard URL that's printed at the end of the run, use the 'play' icon under the 'replays' column and see a video of each frame of the action. What did it get wrong?
 
