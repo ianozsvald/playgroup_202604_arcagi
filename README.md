@@ -88,7 +88,7 @@ Change `HOST` so it reads `HOST=arcprize.org` (i.e. drop the `three.`), else you
 
 ### 5. Test Non-LLM Agent
 
-Run the non-LLM random agent (this also installs the uv environment):
+Run the non-LLM random agent (this also installs the uv environment), then follow the scorecard URL at the end and watch the replay:
 
 ```bash
 uv run main.py --agent=random --game=ls20
