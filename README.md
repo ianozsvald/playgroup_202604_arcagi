@@ -120,6 +120,8 @@ Visit the scorecard URL that's printed at the end of the run, use the 'play' ico
 
 Ah, in my console log I see `openai.RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for o3 in organization org-gGYdAa4Kw4x1W2XdSybgjxrl on tokens per min (TPM): Limit 30000, Used 26862, Requested 8137. Please try again in 9.998s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}` so probably that's the problem...
 
+Visiting https://platform.openai.com/settings/organization/limits shows that I'm on Tier 1 (with $25 on account) and if I go to $50 on account then I get upgraded to Tier 2. I put myself over $50 and indeed I go up to Tier 2 and my `o3` limit jumps up a lot. It suggests I commit $100 to go up another Tier. Oh, this could get expensive!
+
 ### 8. Where next?
 
 * does the prompt in `guidedllm` solve `ls20` or another environment?
