@@ -84,7 +84,8 @@ Traces of example runs appear (delayed) on your [scorecards page](https://arcpri
 
 Edit `.env` to set `ARC_API_KEY` and `OPENAI_API_KEY`. I commented out `AGENTOPS_API_KEY`.
 
-I _also changed_ `HOST` from `HOST=three.arcprize.org` to `HOST=arcprize.org` as this fixes the 'bad scorecards URL` 404 error that I've noted below. See https://github.com/arcprize/ARC-AGI-3-Agents/issues/78
+> [!NOTE]
+> If you didn't edit `HOST` in the step above, your scorecard url at the end of the log will be wrong - strip `three.` from the start to see your scorecard and log
 
 ### 5. Test Non-LLM Agent
 
@@ -112,7 +113,7 @@ Source: [`llm_agents.py` line 16](./ARC-AGI-3-Agents/agents/templates/llm_agents
 
 ### 7. Test Guided LLM Agent
 
-Then try the guided LLM agent which has a prompt that's a human-solution to one style of challenge. This should solve the environment, but _only this environment_ as a human prescribed the solution.
+Then try the guided LLM agent which has a prompt that's a human-solution to one style of challenge. It doesn't solve `ls20` in my testing, what are we missing? Maybe it is meant for a different challenge?
 
 ```bash
 uv run main.py --agent=guidedllm --game=ls20
@@ -122,6 +123,7 @@ Source: [`llm_agents.py` line 496](./ARC-AGI-3-Agents/agents/templates/llm_agent
 
 ### 8. Where next?
 
+* does the prompt in `guidedllm` solve `ls20` or another environment?
 * try hand-describing the rules for _another_ environment, modifying `guidedllm`
 * rather than prescribing the solution (i.e. `guidedllm` in the prior step), how do we describe _how to figure out how to discover a solution?_
 * let's discuss this on the whiteboard - what might we try?
