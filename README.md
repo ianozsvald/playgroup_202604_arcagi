@@ -21,14 +21,19 @@ The more you do, the more you'll get from the day. The first two bullets are a g
 From the `playgroup_202604_arcagi` folder, clone the ARC AGI repo (pinned to a known-good commit, ensures we are all on the same version), install it, and run the quickstart:
 
 ```bash
+playgroup$ git clone git@github.com:ianozsvald/playgroup_202604_arcagi.git # clone _this_ repo
+cd playgroup_202604_arcagi
+
 # pinned 2026-04-17
 git clone git@github.com:arcprize/ARC-AGI.git && cd ARC-AGI && git checkout c729dab36b3d
+(don't worry about the detached head warning, you can always `git log`, then `git checkout HEAD` and `git log` so see how far behind you are)
 
 # Builds the arc-agi package
 uv sync
 
 # Verify it works!
 uv run quickstart.py
+# you'll see the random-move (non llm) agent moving the blob around your shell until it runs out of time
 ```
 
 > [!NOTE]
@@ -50,6 +55,8 @@ The player blob runs off the top of the screen. That's the basic code for writin
 From the `playgroup_202604_arcagi` folder (repo root), clone the agents repo (pinned) and set up the environment:
 
 ```bash
+$ pwd # ... /playgroup_202604_arcagi - check you're not in ARC-AGI still!
+
 # pinned 2026-02-10
 git clone git@github.com:arcprize/ARC-AGI-3-Agents.git && cd ARC-AGI-3-Agents && git checkout 135f20aaf44f
 
@@ -61,17 +68,19 @@ cp .env.example .env
 
 See the [API keys reference](https://docs.arcprize.org/api-keys).
 
-[Log in to the ARC platform](https://arcprize.org/platform) with GitHub or Google. I had to revisit that link to reach the [user page](https://arcprize.org/platform/user). Copy your key and edit `.env` in `ARC-AGI` to read `ARC_API_KEY=4...` (_not_ `ARC_AGI_API`). Verify: when you run a project it shouldn't report "anonymous key".
+[Log in to the ARC platform](https://arcprize.org/platform) with GitHub or Google. I had to revisit that link to reach the [user page](https://arcprize.org/platform/user). Copy your key and edit `.env` in `ARC-AGI` to read `ARC_API_KEY=4...` (_not_ `ARC_AGI_API`-> https://github.com/arcprize/ARC-AGI-3-Agents/issues/77). Verify: when you run a project it shouldn't report "anonymous key" in the log output.
 
 Traces of example runs appear (delayed) on your [scorecards page](https://arcprize.org/scorecards) (login required).
 
 ### 3. Get an OpenAI Key
 
-[Log in to OpenAI](https://platform.openai.com/home), fund your account, and create an [API key](https://platform.openai.com/api-keys).
+[Log in to OpenAI](https://platform.openai.com/home), fund your account, and create an [API key](https://platform.openai.com/api-keys). A run of the reasoning agent example code costs about $0.50, I've funded $25 and I think this is overkill for the day (and it is easy to top up, so maybe start with $10).
 
 ### 4. Setup environment
 
 Edit `.env` to set `ARC_API_KEY` and `OPENAI_API_KEY`. I commented out `AGENTOPS_API_KEY`.
+
+I _also changed_ `HOST` from `HOST=three.arcprize.org` to `HOST=arcprize.org` as this fixes the 'bad scorecards URL` 404 error that I've noted below. See https://github.com/arcprize/ARC-AGI-3-Agents/issues/78
 
 ### 5. Test Non-LLM Agent
 
@@ -99,15 +108,22 @@ Source: [`llm_agents.py` line 16](./ARC-AGI-3-Agents/agents/templates/llm_agents
 
 ### 7. Test Guided LLM Agent
 
-Then try the guided LLM agent:
+Then try the guided LLM agent which has a prompt that's a human-solution to one style of challenge. This should solve the environment, but _only this environment_ as a human prescribed the solution.
 
 ```bash
 uv run main.py --agent=guidedllm --game=ls20
 ```
 
-Source: [`llm_agents.py` line 496](./ARC-AGI-3-Agents/agents/templates/llm_agents.py#L496). Took XXX minutes and XXX with o3 (still running when I wrote this, may take a while).
+Source: [`llm_agents.py` line 496](./ARC-AGI-3-Agents/agents/templates/llm_agents.py#L496). Took 10 minutes and $0.50 with o3.
 
-## Follow Up
+### 8. Where next?
+
+* try hand-describing the rules for _another_ environment, modifying `guidedllm`
+* rather than prescribing the solution (i.e. `guidedllm` in the prior step), how do we describe _how to figure out how to discover a solution?_
+* let's discuss this on the whiteboard - what might we try?
+* maybe you want an Anthropic solution, that should need very few code changes
+
+## If you want to go deeper...
 
 ### Kaggle description
 
