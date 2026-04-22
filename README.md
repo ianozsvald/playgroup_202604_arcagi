@@ -84,8 +84,6 @@ Traces of example runs appear (delayed) on your [scorecards page](https://arcpri
 
 Edit `.env` to set `ARC_API_KEY` and `OPENAI_API_KEY`. I commented out `AGENTOPS_API_KEY`.
 
-> [!NOTE]
-> If you didn't edit `HOST` in the step above, your scorecard url at the end of the log will be wrong - strip `three.` from the start to see your scorecard and log
 
 ### 5. Test Non-LLM Agent
 
@@ -95,11 +93,8 @@ Run the non-LLM random agent (this also installs the uv environment):
 uv run main.py --agent=random --game=ls20
 ```
 
-It prints a scorecard URL. The URL it gave me 404'd on `three.arcprize.org`; stripping `three.` works:
-
-- Broken: `https://three.arcprize.org/scorecards/<id>`
-- Works: `https://arcprize.org/scorecards/<id>`
-- [All scorecards](https://arcprize.org/scorecards)
+> [!NOTE]
+> If you didn't edit `HOST` in the step above, your scorecard url at the end of the log will be wrong - strip `three.` from the start to see your scorecard and log. See [All scorecards](https://arcprize.org/scorecards).
 
 ### 6. Test LLM Agent
 
