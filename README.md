@@ -26,7 +26,8 @@ cd playgroup_202604_arcagi
 
 # pinned 2026-04-17
 git clone git@github.com:arcprize/ARC-AGI.git && cd ARC-AGI && git checkout c729dab36b3d
-(don't worry about the detached head warning, you can always `git log`, then `git checkout HEAD` and `git log` so see how far behind you are)
+# (don't worry about the detached head warning, you can always 
+# `git log`, then `git checkout HEAD` and `git log` so see how far behind you are)
 
 # Builds the arc-agi package
 uv sync
@@ -47,6 +48,9 @@ uv run my-play.py
 ```
 
 The player blob runs off the top of the screen. That's the basic code for writing a non-LLM bot. To move on to an LLM-guided bot, see the [LLM agents notes](https://docs.arcprize.org/llm_agents).
+
+> [!NOTE]
+> THINK - why does this bit of code not solve that environment?
 
 ## Agent Mode
 
