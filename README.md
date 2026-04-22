@@ -121,6 +121,10 @@ uv run main.py --agent=guidedllm --game=ls20
 
 Source: [`llm_agents.py` line 496](./ARC-AGI-3-Agents/agents/templates/llm_agents.py#L496). Took 10 minutes and $0.50 with o3.
 
+Visit the scorecard URL that's printed at the end of the run, use the 'play' icon under the 'replays' column and see a video of each frame of the action. What did it get wrong?
+
+Ah, in my console log I see `openai.RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for o3 in organization org-gGYdAa4Kw4x1W2XdSybgjxrl on tokens per min (TPM): Limit 30000, Used 26862, Requested 8137. Please try again in 9.998s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}` so probably that's the problem...
+
 ### 8. Where next?
 
 * does the prompt in `guidedllm` solve `ls20` or another environment?
