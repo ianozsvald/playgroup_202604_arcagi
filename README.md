@@ -84,6 +84,7 @@ Traces of example runs appear (delayed) on your [scorecards page](https://arcpri
 
 Edit `.env` to set `ARC_API_KEY` and `OPENAI_API_KEY`. I commented out `AGENTOPS_API_KEY`.
 
+Change `HOST` so it reads `HOST=arcprize.org` (i.e. drop the `three.`), else you'll get an error trying to follow the scorecard URL. See https://github.com/arcprize/ARC-AGI-3-Agents/issues/78.
 
 ### 5. Test Non-LLM Agent
 
