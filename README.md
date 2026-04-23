@@ -9,6 +9,7 @@ The more you do, the more you'll get from the day. The first two bullets are a g
 
 - [Try some challenges](https://arcprize.org/tasks?v=3) and think about 'how you figure out how to solve them'
 - [Set up your local machine and get an ARC key](https://docs.arcprize.org/) (see below)
+- Check the `EXPERIMENTS.md` file by this `README.md` to see notes on the agents that have been provided
 - Join `#arc-agi` in the playgroup Slack
 - Overview paper: [ARC-AGI-3: A New Challenge for Frontier Agentic Intelligence](https://arxiv.org/abs/2603.24621)
     - [paper summary on Emergent Mind](https://www.emergentmind.com/papers/2603.24621)

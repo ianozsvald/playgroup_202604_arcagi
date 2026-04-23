@@ -28,7 +28,7 @@ ARC-AGI-3-Agents$ uv run main.py --agent=random --game=ls20
 You'll end with a scorecard URL like the above (for your login), in there you can view a replay.
 
 > [!NOTE] 
-> One of the published solutions takes a _log_ of an execution, which could be this random bot, and then an LLM _analyses_ the trace to see 'what happened' in response to decisions. E.g. moving into a wall means no movement, moving away from a wall teaches us that we can move in this environment in 4 directions. 
+> One of the published solutions (not in this repo) takes a _log_ of an execution, which could be this random bot, and then an LLM _analyses_ the trace to see 'what happened' in response to decisions. E.g. moving into a wall means no movement, moving away from a wall teaches us that we can move in this environment in 4 directions. 
 
 ## `LLMAgent` with `gpt-4o-mini`, has observation, no tools
 
@@ -88,7 +88,6 @@ Code: https://github.com/arcprize/ARC-AGI-3-Agents/blob/main/agents/templates/ll
 
 ```
 ARC-AGI-3-Agents$ uv run main.py --agent=reasoningllm --game=ls20
-...
 ```
 
 This also has the simplistic prompt (it inherits it from `LLM`) so the following trace shows that it doesn't understand this environment.
@@ -114,3 +113,29 @@ It certainly looks like this model thinks it is in a war game and is mis-identif
 Description: https://docs.arcprize.org/llm_agents#guidedllm
 
 Code: https://github.com/arcprize/ARC-AGI-3-Agents/blob/main/agents/templates/llm_agents.py#L496
+
+Prompt: https://github.com/arcprize/ARC-AGI-3-Agents/blob/main/agents/templates/llm_agents.py#L569
+
+```
+ARC-AGI-3-Agents$ uv run main.py --agent=guidedllm --game=ls20
+```
+
+Note that it quickly spots "my avatar" but the location described is the white cross of the key-changer and the avatar description doesn't make sense. It makes a move (up, `ACTION1`), then describes that the rotator is directly ahead (that's the exit gate, not the rotator).
+
+It later notes that it hasn't moved so chooses to go left, but the visual replay shows it moving up.
+
+After this it gets confused, resets itself a couple of times and just goes it circles.
+
+```
+2026-04-23 12:19:08,857 | INFO | Assistant: I can spot my 4×4 avatar: two rows of zeros then two rows of fours sitting on the sea of floor-tiles marked ‘3’, roughly a third of the way down the map (about row 31, column 21).  All around me in every direction is open floor (‘3’s), with the nearest solid walls made of ‘5’s a good distance away; so I’m free to move.  The key-/colour-rotator blocks (‘9’s) sit far above me toward the centre-top of the level, while the exit door framed by ‘11’s is far below near the bottom.  Therefore the first leg of the journey is to head generally upward (and a little right) through the open hall toward the rotators, steering clear of any ‘5’ walls.
+...
+2026-04-23 12:25:35,648 | INFO | Assistant: We seem not to have moved after two upward commands, so something is blocking directly above; squares to our immediate left are just floor (3s), so shifting left should confirm our position and maybe let us skirt whatever is above.
+..
+```
+
+> [!NOTE]
+> I _think_ helping it see that a change did or didn't occur (deterministically) is probably sensible. Maybe we could give it rules about the order of play? This doesn't solve the wider problem about figuring out how to solve these environments afresh, but at least we'd have a bot following our guidance
+
+## `MyCustomLLM`, has observation, `gpt-4o-mini`
+
+This is listed at the end of `llm_agents.py` as a skeleton that you can expand.
