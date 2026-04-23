@@ -14,7 +14,7 @@ ARC-AGI-3-Agents$ uv run main.py --agent=random --game=ls20
 
 You'll end with a scorecard URL like the above (for your login), in there you can view a replay.
 
-> [!NOTE] 
+> [!IDEA] 
 > One of the published solutions takes a _log_ of an execution, which could be this random bot, and then an LLM _analyses_ the trace to see 'what happened' in response to decisions. E.g. moving into a wall means no movement, moving away from a wall teaches us that we can move in this environment in 4 directions. 
 
 ## `o3` based `GuidedLLM` with `ls20` prompt
