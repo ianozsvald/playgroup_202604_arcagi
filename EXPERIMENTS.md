@@ -1,3 +1,5 @@
+# Some early experiments that you could follow
+
 To see the bot code get into `/ARC-AGI-3` or look at https://github.com/arcprize/ARC-AGI-3-Agents/
 
 You can see the tasks here: https://arcprize.org/tasks
