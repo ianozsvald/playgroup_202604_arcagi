@@ -10,7 +10,7 @@ You can see the tasks here: https://arcprize.org/tasks
 
 ## random bot (no llm)
 
-Following the [https://docs.arcprize.org/agents-quickstart#step-2-run-an-agent](quickstart) we can run a non-LLM random-move agent. You can see the code in `agents\templates\random_agent.py`. It inherits from `Agent` and so becomes discoverable by `main.py`.
+Following the [quickstart](https://docs.arcprize.org/agents-quickstart#step-2-run-an-agent) we can run a non-LLM random-move agent. You can see the code in `agents\templates\random_agent.py`. It inherits from `Agent` and so becomes discoverable by `main.py`.
 
 This is a fast random-choice both, it doesn't have a goal. If you look at the code you'll see it is short:
 * `MAX_ACTIONS` is set to 80, for 80 steps (common to the other bots too)
@@ -34,7 +34,7 @@ Described: https://docs.arcprize.org/llm_agents
 
 Code: https://github.com/arcprize/ARC-AGI-3-Agents/blob/main/agents/templates/llm_agents.py#L16
 
-[https://github.com/arcprize/ARC-AGI-3-Agents/blob/e61e1238eac285901423afc3921fe4b1a51c6701/agents/templates/llm_agents.py#L269](Actions) are described in the code:
+[Actions](https://github.com/arcprize/ARC-AGI-3-Agents/blob/e61e1238eac285901423afc3921fe4b1a51c6701/agents/templates/llm_agents.py#L269) are described in the code:
 * `ACTION1` Up
 * `ACTION2` Down 
 * `ACTION3` Left 
